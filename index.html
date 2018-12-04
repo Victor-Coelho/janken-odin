@@ -5,10 +5,40 @@
 </head>
 <body>
     <script>
+        /* Chooses one of the three possible moves randomly */
         function computerPlay() {
-            var array = ["Rock", "Paper", "Scissors"];
-            return 
+            var array = ["rock", "paper", "scissors"];
+            return array[~~(Math.random() * array.length)];
         }
+        /* Plays a round of Rock, Paper, Scissors. All strings from user input are set to lower case.
+            Uses computerPlay() to get the computer input. */
+        function playRound(playerSelection, computerSelection) {
+            playerSelection = playerSelection.toLowerCase();
+            if(playerSelection === computerSelection) {
+                console.log("It's a draw!");
+            } else if(playerSelection === "rock") {
+                if(computerSelection === "paper") {
+                    console.log("You Lose! Paper beats Rock");
+                } else if(computerSelection === "scissors") {
+                    console.log("You Win! Rock beats Scissors");
+                }
+            } else if(playerSelection === "paper") {
+                if(computerSelection === "rock") {
+                    console.log("You Win! Paper beats Rock");
+                } else if(computerSelection === "scissors") {
+                    console.log("You Lose! Scissors beats Paper");
+                }
+            } else if(playerSelection === "scissors") {
+                if(computerSelection === "rock") {
+                    console.log("You Lose! Rock beats Scissors");
+                } else if(computerSelection === "paper") {
+                    console.log("You Win! Scissors beats Paper");
+                }
+            } else {
+                console.log("Something unexpected happened. Check your spelling.")
+            }
+        }
+        console.log(playRound("RoCk", computerPlay()));
     </script>
 </body>
 </html>
