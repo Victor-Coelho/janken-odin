@@ -16,29 +16,75 @@
             playerSelection = playerSelection.toLowerCase();
             if(playerSelection === computerSelection) {
                 console.log("It's a draw!");
+                return -1;
+
             } else if(playerSelection === "rock") {
                 if(computerSelection === "paper") {
                     console.log("You Lose! Paper beats Rock");
+                    return 0;
                 } else if(computerSelection === "scissors") {
                     console.log("You Win! Rock beats Scissors");
+                    return 1;
                 }
             } else if(playerSelection === "paper") {
                 if(computerSelection === "rock") {
                     console.log("You Win! Paper beats Rock");
+                    return 1;
                 } else if(computerSelection === "scissors") {
                     console.log("You Lose! Scissors beats Paper");
+                    return 0;
                 }
             } else if(playerSelection === "scissors") {
                 if(computerSelection === "rock") {
                     console.log("You Lose! Rock beats Scissors");
+                    return 0;
                 } else if(computerSelection === "paper") {
                     console.log("You Win! Scissors beats Paper");
+                    return 1;
                 }
             } else {
                 console.log("Something unexpected happened. Check your spelling.")
+                return NaN;
             }
         }
-        console.log(playRound("RoCk", computerPlay()));
+        /* Function that runs the game in a "Best of" format. Receives number of desired rounds as input. For this assignment, the preset is 5 rounds. */
+        function game(rounds) {
+            console.log("Welcome to the Rock, Paper, Scissors game created for the Project Odin Web Dev 101 course designed by Victor Coelho.")
+            /* Win Counter */
+            let playerCounter = 0;
+            let computerCounter = 0;
+            /* Number of rounds played counter */
+            let roundCounter = 0;
+            /* Loop that executes the number of rounds specified by the function parameter. */
+            while(roundCounter < 5) {
+                /* Reads action from user */
+                const playerInput = window.prompt("Choose your action!");
+                /* Uses the computerPlay() function to simulate the other player */
+                const computerInput = computerPlay();
+                /* Uses the playRound() function to run the round. Receives as parameters actions from both players.
+                    Returns 1 if user won, 0 if computer, -1 for a draw and NaN for unexpected behaviours. */
+                const currentRound = playRound(playerInput, computerInput);
+                /* Determines the round winner. Only advances the round if there was a winner.  */
+                if( currentRound === 1) {
+                    playerCounter++;
+                    roundCounter++;
+                } else if(currentRound === 0) {
+                    computerCounter++;
+                    roundCounter++;
+                } else if(currentRound === -1) {
+                    console.log("Play Again this Round!");
+                }
+            }
+            /* After the match is over, prints the results. */
+            if(playerCounter > computerCounter) {
+                console.log(`You Won the BO${rounds} match ${playerCounter} to ${computerCounter}!`);
+            } else if(playerCounter < computerCounter) {
+                console.log(`You Lost the BO${rounds} match ${playerCounter} to ${computerCounter}!`);
+            } else if(playerCounter === computerCounter) {
+                console.log(`The BO${rounds} match ended in a ${playerCounter} to ${computerCounter} draw! `)
+            }
+        }
+        game(5);
     </script>
 </body>
 </html>
