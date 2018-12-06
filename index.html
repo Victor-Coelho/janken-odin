@@ -70,7 +70,7 @@
             }
         }
         /* Function that runs the game in a "Best of" format. Receives number of desired rounds as input. For this assignment, the preset is 5 rounds. */
-        function game(rounds) {
+        function game() {
             /* Variables that contains the divs where text messages will be displayed for the player. */
             const round_actions = document.querySelector(".actions");
             const intro_messages = document.querySelector(".intro-message");
@@ -89,31 +89,22 @@
             /* Number of rounds played counter */
             let roundCounter = 0;
             /* Loop that executes the number of rounds specified by the function parameter. */
-            while(roundCounter < 5) {
-                /*  */
-                const score_player = document.createElement("h3");
-                const score_comp = document.createElement("h3");
-                const score_current = document.createElement("h3");
-                /* Displays the current score */
-                score_current.textContent = "Current score:"
-                score_player.textContent = `Player: ${playerCounter}`;
-                score_comp.textContent = `Computer: ${computerCounter}`;
-                round_actions.appendChild(score_current);
-                round_actions.appendChild(score_player);
-                round_actions.appendChild(score_comp);
-                /* Discovers what action was selected by the player  */
-                document.addEventListener("click", function (event) {
-                    if(event.target.matches("#rock")) {
-                        playRound("rock", computerPlay(), round_actions);
-                    } else if(event.target.matches("#paper")) {
-                        playRound("paper", computerPlay(), round_actions);
-                    } else if(event.target.matches("#scissors")) {
-                        playRound("scissors", computerPlay(), round_actions);
-                    }
-                })
+            /*  */
+            const score_player = document.createElement("h3");
+            const score_comp = document.createElement("h3");
+            const score_current = document.createElement("h3");
+            /* Displays the current score */
+            /* Discovers what action was selected by the player  */
+            document.addEventListener("click", function (event) {
+                let current_round;
+                if(event.target.matches("#rock")) {
+                    current_round = playRound("rock", computerPlay(), round_actions);
+                } else if(event.target.matches("#paper")) {
+                    current_round = playRound("paper", computerPlay(), round_actions);
+                } else if(event.target.matches("#scissors")) {
+                    current_round = playRound("scissors", computerPlay(), round_actions);
+                }
                 
-                console.log(`Round: ${current_round}`);
-                /* Determines the round winner. Only advances the round if there was a winner.  */
                 if(current_round === 1) {
                     playerCounter++;
                     roundCounter++;
@@ -121,17 +112,30 @@
                     computerCounter++;
                     roundCounter++;
                 }
-            }
-            /* After the match is over, prints the results. */
-            if(playerCounter > computerCounter) {
-                console.log(`You Won the BO${rounds} match ${playerCounter} to ${computerCounter}!`);
-            } else if(playerCounter < computerCounter) {
-                console.log(`You Lost the BO${rounds} match ${playerCounter} to ${computerCounter}!`);
-            } else if(playerCounter === computerCounter) {
-                console.log(`The BO${rounds} match ended in a ${playerCounter} to ${computerCounter} draw! `)
-            }
+                score_current.textContent = "Current score:"
+                score_player.textContent = `Player: ${playerCounter}`;
+                score_comp.textContent = `Computer: ${computerCounter}`;
+                round_actions.appendChild(score_current);
+                round_actions.appendChild(score_player);
+                round_actions.appendChild(score_comp);
+
+                if(roundCounter === 5) {
+                    const final_message = document.createElement("h2");
+                    if(playerCounter > computerCounter) {
+                        final_message.textContent = "YOU WIN!";
+                    } else {
+                        final_message.textContent = "YOU LOSE!";
+                    }
+                    round_actions.appendChild(final_message);
+                    roundCounter = 0;
+                    playerCounter = 0;
+                    computerCounter = 0;
+                }
+            });
+            
+            
         }
-        game(5);
+        game();
     </script>
 </body>
 </html>
