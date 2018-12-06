@@ -71,10 +71,6 @@
         }
         /* Function that runs the game in a "Best of" format. Receives number of desired rounds as input. For this assignment, the preset is 5 rounds. */
         function game(rounds) {
-            /* Variables that contain each one of the possible actions of the game. */
-            const rock_action = document.querySelector("#rock");
-            const paper_action = document.querySelector("#paper");
-            const scissors_action = document.querySelector("#scissors");
             /* Variables that contains the divs where text messages will be displayed for the player. */
             const round_actions = document.querySelector(".actions");
             const intro_messages = document.querySelector(".intro-message");
@@ -102,25 +98,26 @@
                 score_current.textContent = "Current score:"
                 score_player.textContent = `Player: ${playerCounter}`;
                 score_comp.textContent = `Computer: ${computerCounter}`;
-
                 round_actions.appendChild(score_current);
                 round_actions.appendChild(score_player);
                 round_actions.appendChild(score_comp);
                 /* Discovers what action was selected by the player  */
-                rock_action.addEventListener("click", function () {
-                    let current_round = playRound("rock", computerPlay(), round_actions);
-                });
-                paper_action.addEventListener("click", function () {
-                    let current_round = playRound("paper", computerPlay(), round_actions);
-                });
-                scissors_action.addEventListener("click", function () {
-                    let current_round = playRound("scissors", computerPlay(), round_actions);
-                });
+                document.addEventListener("click", function (event) {
+                    if(event.target.matches("#rock")) {
+                        playRound("rock", computerPlay(), round_actions);
+                    } else if(event.target.matches("#paper")) {
+                        playRound("paper", computerPlay(), round_actions);
+                    } else if(event.target.matches("#scissors")) {
+                        playRound("scissors", computerPlay(), round_actions);
+                    }
+                })
+                
+                console.log(`Round: ${current_round}`);
                 /* Determines the round winner. Only advances the round if there was a winner.  */
-                if( currentRound === 1) {
+                if(current_round === 1) {
                     playerCounter++;
                     roundCounter++;
-                } else if(currentRound === 0) {
+                } else if(current_round === 0) {
                     computerCounter++;
                     roundCounter++;
                 }
