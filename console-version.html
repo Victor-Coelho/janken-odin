@@ -1,18 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Rock Paper Scissors</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Page Title</title>
 </head>
 <body>
-    <button id="rock">Rock</button>
-    <button id="paper">Paper</button>
-    <button id="scissors">Scissors</button>
-
-
-
-
-
     <script>
         /* Chooses one of the three possible moves randomly */
         function computerPlay() {
@@ -93,23 +84,7 @@
                 console.log(`The BO${rounds} match ended in a ${playerCounter} to ${computerCounter} draw! `)
             }
         }
-        /* Event Listeners attached to each one of the three possible actions by the player. Plays the round according to the action chosen by the player. */
-        const rock_action = document.querySelector("#rock");
-        const paper_action = document.querySelector("#paper");
-        const scissors_action = document.querySelector("#scissors");
-        
-        rock_action.addEventListener("click", function () {
-            playRound("rock", computerPlay());
-        });
-
-        paper_action.addEventListener("click", function () {
-            playRound("paper", computerPlay());
-        });
-
-        scissors_action.addEventListener("click", function () {
-            playRound("scissors", computerPlay());
-        });
-
+        game(5);
     </script>
 </body>
 </html>
