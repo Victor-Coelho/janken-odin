@@ -5,10 +5,13 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <button id="rock">Rock</button>
-    <button id="paper">Paper</button>
-    <button id="scissors">Scissors</button>
-    <div class = "intro-message"></div>
+    <div class="buttons-style">
+        <button id="rock" class="buttons-color">Rock</button>
+        <button id="paper" class="buttons-color">Paper</button>
+        <button id="scissors" class="buttons-color">Scissors</button>
+    </div>
+
+    <div class ="intro-message"></div>
     <div class="actions"></div>
 
     <script>
@@ -78,7 +81,7 @@
             const instructions_message = document.createElement("p");
 
             welcome_message.textContent = "Welcome to the Rock Paper Scissors game created for the Odin Project Web Dev 101 course. The game was designed by Victor Coelho.";
-            instructions_message.textContent = "This is a BO5 match. If the round ends in a draw, that round gets replayed.";
+            instructions_message.textContent = "This is a BO5 match. If the round ends in a draw, that round gets replayed. To start the game, simply click one of the actions.";
 
             intro_messages.appendChild(welcome_message);
             intro_messages.appendChild(instructions_message);
@@ -93,18 +96,21 @@
             const score_player = document.createElement("h3");
             const score_comp = document.createElement("h3");
             const score_current = document.createElement("h3");
-            /* Displays the current score */
             /* Discovers what action was selected by the player  */
             document.addEventListener("click", function (event) {
                 let current_round;
+                /* Tests which actions the player chose. Plays the round according to that action. */
                 if(event.target.matches("#rock")) {
                     current_round = playRound("rock", computerPlay(), round_actions);
                 } else if(event.target.matches("#paper")) {
                     current_round = playRound("paper", computerPlay(), round_actions);
                 } else if(event.target.matches("#scissors")) {
                     current_round = playRound("scissors", computerPlay(), round_actions);
+                } else if(event.target.matches("#reset")) {
+                    location.reload(true);
                 }
                 
+                /* Updates the number of rounds played. Determines de winner. */
                 if(current_round === 1) {
                     playerCounter++;
                     roundCounter++;
@@ -112,13 +118,14 @@
                     computerCounter++;
                     roundCounter++;
                 }
+                /* Displays the current score */
                 score_current.textContent = "Current score:"
                 score_player.textContent = `Player: ${playerCounter}`;
                 score_comp.textContent = `Computer: ${computerCounter}`;
-                round_actions.appendChild(score_current);
-                round_actions.appendChild(score_player);
-                round_actions.appendChild(score_comp);
-
+                intro_messages.appendChild(score_current);
+                intro_messages.appendChild(score_player);
+                intro_messages.appendChild(score_comp);
+                /* If the match reaches five rounds, display the winner. Resets counters. */
                 if(roundCounter === 5) {
                     const final_message = document.createElement("h2");
                     if(playerCounter > computerCounter) {
@@ -130,10 +137,14 @@
                     roundCounter = 0;
                     playerCounter = 0;
                     computerCounter = 0;
+                    let resetButton = document.createElement("button");
+                    resetButton.textContent = "Do you want to play another match?"
+                    resetButton.setAttribute("id","reset");
+                    resetButton.classList.toggle("buttons-color");
+                    round_actions.appendChild(resetButton);
+                    
                 }
             });
-            
-            
         }
         game();
     </script>
