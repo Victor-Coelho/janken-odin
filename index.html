@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-US">
 <head>
     <title>Rock Paper Scissors</title>
     <link rel="stylesheet" href="style.css">
@@ -31,42 +31,35 @@
                 return -1;
             } else if(playerSelection === "rock") {
                 if(computerSelection === "paper") {
-                    console.log("You Lose! Paper beats Rock");
                     round_result.textContent = "You Lose! Paper beats Rock";
                     round_actions.appendChild(round_result);
                     return 0;
                 } else if(computerSelection === "scissors") {
-                    console.log("You Win! Rock beats Scissors");
                     round_result.textContent = "You Win! Rock beats Scissors";
                     round_actions.appendChild(round_result);
                     return 1;
                 }
             } else if(playerSelection === "paper") {
                 if(computerSelection === "rock") {
-                    console.log("You Win! Paper beats Rock");
                     round_result.textContent = "You Win! Paper beats Rock";
                     round_actions.appendChild(round_result);
                     return 1;
                 } else if(computerSelection === "scissors") {
-                    console.log("You Lose! Scissors beats Paper");
                     round_result.textContent = "You Lose! Scissors beats Paper";
                     round_actions.appendChild(round_result);
                     return 0;
                 }
             } else if(playerSelection === "scissors") {
                 if(computerSelection === "rock") {
-                    console.log("You Lose! Rock beats Scissors");
                     round_result.textContent = "You Lose! Rock beats Scissors";
                     round_actions.appendChild(round_result);
                     return 0;
                 } else if(computerSelection === "paper") {
-                    console.log("You Win! Scissors beats Paper");
                     round_result.textContent = "You Win! Scissors beats Paper";
                     round_actions.appendChild(round_result);
                     return 1;
                 }
             } else {
-                console.log("Something unexpected happened. Check your spelling.")
                 round_result.textContent = "Something unexpected happened. Check your spelling.";
                 round_actions.appendChild(round_result);
                 return NaN;
